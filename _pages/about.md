@@ -49,7 +49,7 @@ redirect_from:
 <br/>
 <br/>
 
-<img src="/images/page1.gif" alt="imgP" />
+<img src="https://raw.githubusercontent.com/Harsh-Udai/Harsh_Udai/refs/heads/master/images/page1.gif" alt="imgP" />
 
 
 <!-- Getting started
