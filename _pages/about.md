@@ -49,7 +49,7 @@ redirect_from:
 <br/>
 <br/>
 
-![img](../images/page1.gif)
+<img src="{{site.baseurl | prepend: site.url}}images/page1.gif" alt="ph1" />
 
 <!-- Getting started
 ======
