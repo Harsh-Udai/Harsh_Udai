@@ -11,7 +11,9 @@ locale                   : "en-US"
 title                    : "Harsh's Homepage"
 title_separator          : "-"
 name                     : &name "Harsh Udai"
+
 description              : &description "Research Scholar"
+
 url                      : https://harsh-udai.github.io/Harsh_Udai/ # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "Harsh-Udai/Harsh_Udai"
