@@ -49,7 +49,7 @@ redirect_from:
 <br/>
 <br/>
 
-![img](https://github.com/Harsh-Udai/Harsh_Udai/blob/master/images/page1.gif)
+![https://github.com/Harsh-Udai/Harsh_Udai/blob/master/images/page1.gif](https://github.com/Harsh-Udai/Harsh_Udai/blob/master/images/page1.gif?raw=true)
 
 
 <!-- Getting started
