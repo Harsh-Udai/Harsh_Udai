@@ -14,7 +14,7 @@ redirect_from:
  -->
 
 <br/>
-👨🏻‍💻 <strong>As a second-year PhD student at the Indian Institute of Technology, Hyderabad, I am fortunate to be mentored by Dr. Konda Reddy Mopuri and Dr. Vineeth N Balasubramanian. Under their guidance, I am delving into the exciting realm of Machine Learning and Deep Learning, pushing the boundaries of innovation in these fields.
+👨🏻‍💻 <strong>As a second-year PhD student</strong> at the Indian Institute of Technology, Hyderabad, I am fortunate to be mentored by <strong>Dr. Konda Reddy Mopuri</strong> and <strong>Dr. Vineeth N Balasubramanian</strong>. Under their guidance, I am delving into the exciting realm of Machine Learning and Deep Learning, pushing the boundaries of innovation in these fields.
 
 🔬 <strong>Research Interests</strong>: My focus lies in <strong>computer vision</strong>, <strong>explainability</strong>, <strong>compositionality</strong>, and <strong>transformers</strong>, with a passion for pushing the boundaries of innovation in these fields.
 
