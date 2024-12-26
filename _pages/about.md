@@ -14,7 +14,7 @@ redirect_from:
  -->
 
 <br/>
-👨🏻‍💻 <strong>I’m a second-year PhD student</strong> at the Indian Institute of Technology, Hyderabad, exploring the frontiers of Machine Learning & Deep Learning.
+👨🏻‍💻 <strong>I’m a second-year PhD student</strong> at the Indian Institute of Technology, Hyderabad under &nbsp;&nbsp; <Strong> Dr. Konda Reddy Mopuri </strong> & <Strong> Dr. Vineeth N Balasubramanian </strong> exploring the frontiers of Machine Learning & Deep Learning.
 
 🔬 <strong>Research Interests</strong>: My focus lies in <strong>computer vision</strong>, <strong>explainability</strong>, <strong>compositionality</strong>, and <strong>transformers</strong>, with a passion for pushing the boundaries of innovation in these fields.
 
