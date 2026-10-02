@@ -66,6 +66,12 @@ section > p{margin:0 0 16px;max-width:66ch}
 .meta b{color:var(--ink);font-weight:500}
 .card p{margin:0;font-size:16px}
 .venue{font-family:var(--pix);font-size:13px;color:var(--accent);letter-spacing:.3px}
+.venue.gold{position:relative;overflow:hidden;display:inline-block;background:#F6E4C8;color:#7A4E14;padding:4px 10px;margin:2px 0 8px}
+.venue.gold::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-20deg);animation:goldsweep 3s ease-in-out infinite}
+@keyframes goldsweep{0%{left:-60%}55%,100%{left:130%}}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .venue.gold{background:#4A3A1E;color:#F2C46B} }
+:root[data-theme="dark"] .venue.gold{background:#4A3A1E;color:#F2C46B}
+@media (prefers-reduced-motion: reduce){ .venue.gold::after{animation:none;display:none} }
 .venue.ongoing{color:var(--accent2)}
 
 .pbtns{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap}
@@ -194,7 +200,7 @@ footer{text-align:center;color:var(--soft);font-size:14px;padding:20px 0 40px}
   <section id="publications">
     <h2>Publications</h2>
     <div class="card">
-      <span class="venue">NeurIPS 2026</span>
+      <span class="venue gold">★ NeurIPS 2026</span>
       <h3>Beyond Hard Negatives: Grounded Positive Supervision for Compositional CLIP</h3>
       <div class="meta"><b>Harsh Udai</b>, Konda Reddy Mopuri, Vineeth N. Balasubramanian</div>
       <p>Region-aligned multi-positive supervision and relation-aware triplet constraints that strengthen attribute–object binding and relational compositionality in vision–language embedding spaces.</p>
@@ -204,7 +210,7 @@ footer{text-align:center;color:var(--soft);font-size:14px;padding:20px 0 40px}
       </div>
     </div>
     <div class="card">
-      <span class="venue">NeurIPS 2026</span>
+      <span class="venue gold">★ NeurIPS 2026</span>
       <h3>LACE: Latent Alignment via Counterfactual Embeddings</h3>
       <div class="meta"><b>Harsh Udai</b>, Konda Reddy Mopuri</div>
       <p>Sparse concept-space counterfactual editing that generates symmetric image-side and text-side hard negatives, with no pixel editing, external generators or retrieval mining.</p>
