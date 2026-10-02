@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Harsh Udai — Research</title>
+<meta name="description" content="Harsh Udai, Direct-PhD student at IIT Hyderabad working on compositional generalization in vision–language models and mechanistic interpretability.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#F8F3EC; --card:#FFFFFF; --ink:#2F2A24; --soft:#756C61; --line:#E8DFD3; --accent:#B8664A; --accent2:#7D6C4E;
+  --pix:"Space Mono","Courier New",monospace;
+  --body:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1C1916; --card:#26221E; --ink:#F2ECE4; --soft:#ADA396; --line:#3B352E; --accent:#F2AE95; --accent2:#CDB78E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1C1916; --card:#26221E; --ink:#F2ECE4; --soft:#ADA396; --line:#3B352E; --accent:#F2AE95; --accent2:#CDB78E;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px dashed var(--accent);outline-offset:3px}
+h1,h2,h3{font-family:var(--pix);font-weight:700;line-height:1.2;margin:0}
+.wrap{max-width:780px;margin:0 auto;padding:0 22px}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:10;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+nav .name{font-family:var(--pix);font-weight:700;font-size:17px;margin-right:auto;color:var(--ink);text-decoration:none}
+nav .name{display:inline-flex;align-items:center;gap:10px}
+nav a.l{color:var(--soft);text-decoration:none;font-size:15px}
+nav a.l:hover{color:var(--ink)}
+.theme{background:none;border:1px solid var(--line);color:var(--soft);border-radius:6px;padding:3px 9px;cursor:pointer;font-size:14px}
+@media (max-width:640px){ nav a.l{display:none} }
+
+.hero{padding:28px 0 52px;display:flex;gap:30px;align-items:center}
+.emblem{width:88px;flex:none}
+.emblem svg{width:100%;height:auto;display:block}
+.hero h1{font-size:clamp(32px,6vw,44px)}
+.hero .role{color:var(--accent2);font-weight:500;margin:4px 0 12px}
+.hero p{margin:0;color:var(--soft);max-width:60ch}
+.hero .advisors{margin-top:10px;font-size:15px}
+.hero .links{margin-top:18px}
+@media (max-width:560px){ .hero{flex-direction:column;align-items:flex-start;padding-top:48px} .emblem{width:64px} }
+
+section{padding:0 0 60px}
+section h2{font-size:22px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+section h2::before{content:"";width:10px;height:10px;background:var(--accent);flex:none}
+section > p{margin:0 0 16px;max-width:66ch}
+
+.card{
+  background:var(--card);padding:20px 22px;margin-bottom:14px;
+  clip-path:polygon(0 6px,6px 6px,6px 0,calc(100% - 6px) 0,calc(100% - 6px) 6px,100% 6px,100% calc(100% - 6px),calc(100% - 6px) calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,6px calc(100% - 6px),0 calc(100% - 6px));
+}
+.card h3{font-family:var(--body);font-weight:500;font-size:18px;line-height:1.35}
+.meta{color:var(--soft);font-size:14px;margin:4px 0 8px}
+.meta b{color:var(--ink);font-weight:500}
+.card p{margin:0;font-size:16px}
+.venue{font-family:var(--pix);font-size:13px;color:var(--accent);letter-spacing:.3px}
+.venue.ongoing{color:var(--accent2)}
+
+.pbtns{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap}
+.pbtn{
+  position:relative;display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--pix);font-size:13px;padding:6px 14px 6px 10px;
+  background:var(--bg);color:var(--soft);border:2px solid var(--line);
+  box-shadow:3px 3px 0 var(--line);cursor:not-allowed;user-select:none;
+  transition:transform .12s steps(2), box-shadow .12s steps(2), border-color .12s, color .12s;
+}
+.pbtn svg{width:16px;height:16px;flex:none}
+.pbtn:hover,.pbtn:focus-visible{
+  color:var(--ink);border-color:var(--accent2);box-shadow:5px 5px 0 var(--accent2);
+  transform:translate(-2px,-2px);outline:none;
+}
+/* pixel speech bubble */
+.pbtn::after{
+  content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 12px);
+  transform:translate(-50%,4px);background:var(--ink);color:var(--bg);
+  font-family:var(--pix);font-size:11px;letter-spacing:.5px;white-space:nowrap;padding:5px 10px;
+  box-shadow:3px 3px 0 var(--accent);opacity:0;pointer-events:none;
+  transition:opacity .15s, transform .15s steps(2);
+}
+.pbtn::before{
+  content:"";position:absolute;left:50%;bottom:calc(100% + 6px);width:6px;height:6px;margin-left:-3px;
+  background:var(--ink);opacity:0;transition:opacity .15s;
+}
+.pbtn:hover::after,.pbtn:focus-visible::after,.pbtn.shake::after{opacity:1;transform:translate(-50%,0)}
+.pbtn:hover::before,.pbtn:focus-visible::before,.pbtn.shake::before{opacity:1}
+.pbtn.shake{animation:jiggle .35s steps(4)}
+@keyframes jiggle{0%,100%{translate:0}25%{translate:-3px}50%{translate:3px}75%{translate:-2px}}
+@media (prefers-reduced-motion: reduce){ .pbtn,.pbtn::after{transition:none} .pbtn.shake{animation:none} }
+.interests{display:flex;flex-wrap:wrap;gap:8px}
+.interests span{font-size:14px;padding:4px 12px;border:1px solid var(--line);background:var(--card)}
+
+.timeline{list-style:none;padding:0;margin:0}
+.timeline li{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:12px 0;border-top:1px solid var(--line)}
+.timeline li:first-child{border-top:none}
+.timeline .yr{font-family:var(--pix);color:var(--soft);font-size:14px;padding-top:2px}
+.timeline h3{font-family:var(--body);font-weight:500;font-size:17px}
+.timeline p{margin:0;color:var(--soft);font-size:15px}
+@media (max-width:520px){ .timeline li{grid-template-columns:1fr;gap:2px} }
+
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.three .card{margin-bottom:0}
+.three h3{font-family:var(--pix);font-size:14px;color:var(--accent);margin-bottom:10px;letter-spacing:.3px}
+@media (max-width:760px){ .three{grid-template-columns:1fr} }
+.plain{list-style:none;padding:0;margin:0}
+.plain li{padding:6px 0;font-size:15px;line-height:1.45;border-top:1px solid var(--line)}
+.plain li:first-child{border-top:none;padding-top:0}
+.plain li span{color:var(--soft);display:block;font-size:13px}
+
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.links a{
+  position:relative;display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--pix);font-size:13px;text-decoration:none;padding:6px 14px 6px 10px;
+  background:var(--bg);color:var(--ink);border:2px solid var(--accent);box-shadow:3px 3px 0 var(--accent);
+  transition:transform .12s steps(2), box-shadow .12s steps(2), border-color .12s;
+}
+.links a svg{width:16px;height:16px;flex:none}
+.links a:hover,.links a:focus-visible{
+  transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--accent2);border-color:var(--accent2);outline:none;
+}
+.links a:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--accent)}
+.links{gap:14px}
+@media (prefers-reduced-motion: reduce){ .links a{transition:none} }
+
+/* animated pixel desk scene */
+.scene{position:relative;margin-top:20px;cursor:pointer}
+.scene canvas{display:block;width:100%;height:auto;aspect-ratio:160/50;max-height:34vh;object-fit:contain;image-rendering:pixelated;image-rendering:crisp-edges;
+  clip-path:polygon(0 6px,6px 6px,6px 0,calc(100% - 6px) 0,calc(100% - 6px) 6px,100% 6px,100% calc(100% - 6px),calc(100% - 6px) calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,6px calc(100% - 6px),0 calc(100% - 6px));}
+.bubble{
+  position:absolute;right:16%;top:18%;background:var(--card);color:var(--ink);font-family:var(--pix);font-size:11px;
+  white-space:nowrap;padding:5px 9px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--accent);
+  opacity:0;transform:translateY(4px);transition:opacity .2s, transform .2s steps(2);pointer-events:none
+}
+.bubble.show{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){ .bubble{transition:none} }
+footer{text-align:center;color:var(--soft);font-size:14px;padding:20px 0 40px}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="name" href="#top">Harsh Udai</a>
+    <a class="l" href="#research">Research</a>
+    <a class="l" href="#publications">Publications</a>
+    <a class="l" href="#background">Background</a>
+    <a class="l" href="#contact">Contact</a>
+    <button class="theme" id="themeBtn" aria-label="Switch light or dark theme">◐</button>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+  <div class="scene" id="sceneWrap" role="img" aria-label="Animated pixel art of a research desk at a window: a monitor captions an image of a red cube and a blue ball, while a little robot watches.">
+    <canvas id="scene" width="160" height="50"></canvas>
+    <span class="bubble" id="bubble" aria-hidden="true"></span>
+  </div>
+  <header class="hero">
+    <div class="emblem" id="emblem" aria-hidden="true"></div>
+    <div>
+      <h1>Harsh Udai</h1>
+      <div class="role">Direct-PhD, Artificial Intelligence · IIT Hyderabad</div>
+      <p>I study how vision–language models can move beyond brittle pattern-matching toward structured reasoning, building complex concepts from simpler parts.</p>
+      <p class="advisors">Advised by Dr. Konda Reddy Mopuri and Dr. Vineeth N Balasubramanian. C-DOT STAR Scholar.</p>
+      <div class="links">
+        <a href="mailto:your-email@iith.ac.in"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="2" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="6" width="1.02" height="1.02" fill="currentColor"/></svg><span>Email</span></a>
+        <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="2" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="2" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="6" width="1.02" height="1.02" fill="var(--accent)"/></svg><span>Scholar</span></a>
+        <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="0" width="1.02" height="1.02" fill="var(--accent)"/><rect x="1" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="7" width="1.02" height="1.02" fill="var(--accent)"/></svg><span>GitHub</span></a>
+        <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="7" width="1.02" height="1.02" fill="currentColor"/></svg><span>LinkedIn</span></a>
+        <a href="#"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="1" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="1" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="2" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="2" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="2" width="1.02" height="1.02" fill="var(--card)"/><rect x="5" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="3" width="1.02" height="1.02" fill="var(--card)"/><rect x="6" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="5" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="6" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="5" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="6" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="7" width="1.02" height="1.02" fill="currentColor"/></svg><span>CV</span></a>
+      </div>
+    </div>
+  </header>
+
+  <section id="research">
+    <h2>Research</h2>
+    <p>My work focuses on compositional generalization in machine learning. I treat vision–language models not only as capable systems but as imperfect approximations of multimodal cognition, and I investigate their internal representations, shortcuts and failure modes. Using mechanistic interpretability, I aim to reverse-engineer these models and turn the insights into training objectives and architectures that are more modular, transparent and reliable.</p>
+    <div class="interests">
+      <span>Vision–Language Models</span><span>Compositionality</span><span>Mechanistic Interpretability</span><span>Representation Learning</span><span>Sparse Autoencoders</span>
+    </div>
+  </section>
+
+  <section id="publications">
+    <h2>Publications</h2>
+    <div class="card">
+      <span class="venue">NeurIPS 2026</span>
+      <h3>Beyond Hard Negatives: Grounded Positive Supervision for Compositional CLIP</h3>
+      <div class="meta"><b>Harsh Udai</b>, Konda Reddy Mopuri, Vineeth N. Balasubramanian</div>
+      <p>Region-aligned multi-positive supervision and relation-aware triplet constraints that strengthen attribute–object binding and relational compositionality in vision–language embedding spaces.</p>
+      <div class="pbtns">
+        <span class="pbtn" tabindex="0" role="button" aria-disabled="true" data-tip="COMING SOON" aria-label="Paper, coming soon"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="1" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="1" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="2" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="2" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="2" width="1.02" height="1.02" fill="var(--card)"/><rect x="5" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="3" width="1.02" height="1.02" fill="var(--card)"/><rect x="6" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="5" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="6" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="5" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="6" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="7" width="1.02" height="1.02" fill="currentColor"/></svg>Paper</span>
+        <span class="pbtn" tabindex="0" role="button" aria-disabled="true" data-tip="COMING SOON" aria-label="Code, coming soon"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="2" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="6" width="1.02" height="1.02" fill="currentColor"/></svg>Code</span>
+      </div>
+    </div>
+    <div class="card">
+      <span class="venue">NeurIPS 2026</span>
+      <h3>LACE: Latent Alignment via Counterfactual Embeddings</h3>
+      <div class="meta"><b>Harsh Udai</b>, Konda Reddy Mopuri</div>
+      <p>Sparse concept-space counterfactual editing that generates symmetric image-side and text-side hard negatives, with no pixel editing, external generators or retrieval mining.</p>
+      <div class="pbtns">
+        <span class="pbtn" tabindex="0" role="button" aria-disabled="true" data-tip="COMING SOON" aria-label="Paper, coming soon"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="0" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="1" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="1" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="2" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="2" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="2" width="1.02" height="1.02" fill="var(--card)"/><rect x="5" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="3" width="1.02" height="1.02" fill="var(--card)"/><rect x="6" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="5" y="4" width="1.02" height="1.02" fill="var(--card)"/><rect x="6" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="3" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="4" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="5" y="6" width="1.02" height="1.02" fill="var(--card)"/><rect x="6" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="7" width="1.02" height="1.02" fill="currentColor"/></svg>Paper</span>
+        <span class="pbtn" tabindex="0" role="button" aria-disabled="true" data-tip="COMING SOON" aria-label="Code, coming soon"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="2" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="6" width="1.02" height="1.02" fill="currentColor"/></svg>Code</span>
+      </div>
+    </div>
+    <div class="card">
+      <span class="venue ongoing">Ongoing</span>
+      <h3>Multimodal Sparse Autoencoders for Compositional Faithfulness</h3>
+      <p>A shared sparse dictionary with cross-decoding that preserves compositional behavior in frozen embeddings, evaluated across CLIP, SigLIP and SigLIP2.</p>
+    </div>
+  </section>
+
+  <section id="background">
+    <h2>Background</h2>
+    <ul class="timeline">
+      <li><span class="yr">2023–now</span><div><h3>Direct-PhD, Artificial Intelligence</h3><p>Indian Institute of Technology Hyderabad</p></div></li>
+      <li><span class="yr">2022–2023</span><div><h3>Software Engineer, RoboMQ</h3><p>Java/Spring and Node.js microservices for customer-facing products</p></div></li>
+      <li><span class="yr">2018–2022</span><div><h3>B.Tech, Computer Science and Engineering</h3><p>JK Lakshmipat University, Jaipur</p></div></li>
+    </ul>
+  </section>
+
+  <section id="honors">
+    <h2>Honors &amp; service</h2>
+    <div class="three">
+      <div class="card">
+        <h3>Reviewing</h3>
+        <ul class="plain">
+          <li>Silver Reviewer Award<span>ICML 2026</span></li>
+          <li>Reviewer<span>ICML 2026, NeurIPS 2026, ICVGIP 2025</span></li>
+          <li>Sub-reviewer<span>CVPR 2026, ECCV 2026, ICVGIP 2026, NeurIPS 2025, TMLR</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Updates</h3>
+        <ul class="plain">
+          <li>Two papers accepted at NeurIPS<span>September 2026</span></li>
+          <li>Silver Reviewer Award at ICML<span>May 2026</span></li>
+          <li>Awarded C-DOT STAR Scholarship<span>July 2025</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Teaching Assistant</h3>
+        <ul class="plain">
+          <li>Foundations of Machine Learning<span>AI5000 · Fall 2025</span></li>
+          <li>Deep Learning<span>AI5100 · Spring 2025</span></li>
+          <li>Computer Vision<span>AI3603 · Spring 2025</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p style="color:var(--soft)">Happy to talk about compositionality, interpretability, or possible collaborations.</p>
+    <div class="links">
+      <a href="mailto:your-email@iith.ac.in"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="0" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="2" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="7" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="6" width="1.02" height="1.02" fill="currentColor"/></svg><span>Email</span></a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="2" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="2" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="6" width="1.02" height="1.02" fill="var(--accent)"/></svg><span>Scholar</span></a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="1" y="0" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="0" width="1.02" height="1.02" fill="var(--accent)"/><rect x="1" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="7" width="1.02" height="1.02" fill="var(--accent)"/></svg><span>GitHub</span></a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="1" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="2" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="3" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="4" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="4" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="5" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="5" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="6" width="1.02" height="1.02" fill="currentColor"/><rect x="0" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="7" width="1.02" height="1.02" fill="currentColor"/></svg><span>LinkedIn</span></a>
+      <a href="#" target="_blank" rel="noopener"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="6" y="1" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="2" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="3" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="4" width="1.02" height="1.02" fill="var(--accent)"/><rect x="0" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="5" width="1.02" height="1.02" fill="var(--accent)"/><rect x="0" y="6" width="1.02" height="1.02" fill="var(--accent)"/><rect x="3" y="6" width="1.02" height="1.02" fill="var(--accent)"/><rect x="6" y="6" width="1.02" height="1.02" fill="var(--accent)"/><rect x="0" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="1" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="2" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="3" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="4" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="5" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="6" y="7" width="1.02" height="1.02" fill="currentColor"/><rect x="7" y="7" width="1.02" height="1.02" fill="currentColor"/></svg><span>Kaggle</span></a>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 Harsh Udai</footer>
+
+<script>
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+// Pixel emblem: simple parts composed into a whole
+const ROWS = [
+  "................","................",
+  ".....kkkkkk.....",".....kaaaak.....",".....kawaak.....",".....kaaaak.....",".....kaaaak.....",".....kkkkkk.....",
+  "..kkkkkkkkkkkk..","..kttttkkssssk..","..ktwttkkswssk..","..kttttkkssssk..","..kttttkkssssk..","..kkkkkkkkkkkk..",
+  "................","................"
+];
+function drawEmblem(){
+  const pal = {k:css("--ink"), a:css("--accent"), t:css("--accent2"), s:css("--line"), w:css("--card")};
+  let r = "";
+  ROWS.forEach((row,y)=>[...row].forEach((c,x)=>{ if(pal[c]) r += `<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${pal[c]}"/>`; }));
+  document.getElementById("emblem").innerHTML = `<svg viewBox="0 0 16 16" shape-rendering="crispEdges">${r}</svg>`;
+}
+const root = document.documentElement;
+try{ const t = localStorage.getItem("site-theme"); if(t) root.dataset.theme = t; }catch(e){}
+document.getElementById("themeBtn").addEventListener("click", ()=>{
+  const dark = root.dataset.theme ? root.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try{ localStorage.setItem("site-theme", root.dataset.theme); }catch(e){}
+  drawEmblem();
+});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawEmblem);
+drawEmblem();
+
+
+
+// Animated pixel desk scene (original art)
+(function(){
+  const cv = document.getElementById("scene"), ctx = cv.getContext("2d");
+  const bubble = document.getElementById("bubble");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const R = (x,y,w,h,c)=>{ ctx.fillStyle=c; ctx.fillRect(x,y,w,h); };
+  const isDark = ()=>{ const r=document.documentElement; return r.dataset.theme ? r.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
+  const BOT = [
+    ".......l........",".......k........","...kkkkkkkkkk...","..kbbbbbbbbbbk..","..kbbkkkkkkbbk..",
+    "..kbkeeeeeekbk..","..kbkeeeeeekbk..","..kbkeeeeeekbk..","..kbkeeeeeekbk..","..kbbkkkkkkbbk..",
+    "..kbbbbbbbbbbk..","..kbbbbkkbbbbk..","...kkkkkkkkkk...","....kttttttk....","....ktkttktk....",
+    "....kkkkkkkk....",".....k....k.....","....kk....kk...."
+  ];
+  const WORDS = ["a","red","cube","left","of","a","blue","ball"];
+  const RED="#C9573F", BLUE="#6F8FB5", GREEN="#7C9A5E";
+  const LINES = ["hi there!","red cube + blue ball","binding attributes…","left of? right of?","parts → whole"];
+  const stars = [[113,9],[120,14],[124,8],[133,24],[115,27],[140,29],[122,30]];
+  let t = 0, blink = 0, hop = 0, look = -1, li = 0, bt;
+
+  function say(m){ bubble.textContent=m; bubble.classList.add("show"); clearTimeout(bt); bt=setTimeout(()=>bubble.classList.remove("show"),2600); }
+
+  function draw(){
+    const d = isDark();
+    const ink=d?"#110E0B":css("--ink"), acc=css("--accent"), acc2=css("--accent2"), card=css("--card"), line=css("--line"), soft=css("--soft");
+    const wall = d?"#2A251F":"#F1E7DA", wall2 = d?"#25201B":"#EADDCC";
+    ctx.clearRect(0,0,160,50);
+    R(0,0,160,50,wall);
+    for(let x=2;x<160;x+=8) R(x,30,1,14,wall2);
+
+    // window + sky
+    R(108,4,40,32,ink);
+    ctx.save(); ctx.beginPath(); ctx.rect(110,6,36,28); ctx.clip();
+    R(110,6,36,28, d?"#2B2F4A":"#F4C6A5"); R(110,6,36,11, d?"#353659":"#F8DCC4");
+    if(d){
+      R(137,9,5,5,"#F2ECE4"); R(136,10,7,3,"#F2ECE4"); R(139,10,2,2,"#DCD3C6");
+      stars.forEach(([x,y],i)=>{ if(still || (Math.floor(t/5)+i)%4) R(x,y,1,1,"#F2ECE4"); });
+    } else {
+      R(134,20,8,6,"#F09B74"); R(135,19,6,1,"#F09B74"); R(133,21,1,4,"#F09B74"); R(142,21,1,4,"#F09B74");
+      R(110,27,36,7,"#E9B08F");
+      [[0,10],[22,14]].forEach(([o,y])=>{ const x = 104 + ((still?o:(t/4+o))%52); R(x,y,8,2,"#FFF6EC"); R(x+2,y-1,4,1,"#FFF6EC"); });
+    }
+    ctx.restore();
+    R(127,6,2,28,ink); R(110,19,36,2,ink); R(106,36,44,2,acc2);
+
+    // shelf + books + plant
+    R(6,21,46,2,acc2); R(10,23,2,3,ink); R(46,23,2,3,ink);
+    [[8,3,11,acc],[11,2,9,BLUE],[13,3,12,acc2],[16,2,10,soft],[18,3,11,GREEN],[22,2,8,RED],[24,3,12,ink],[27,2,10,acc]]
+      .forEach(([x,w,h,c])=>{ R(x,21-h,w,h,c); R(x,21-h+2,w,1,"rgba(255,255,255,.35)"); });
+    R(30,13,2,8,BLUE); R(32,12,2,9,acc2); // leaning-ish stack
+    R(40,17,6,4,acc); R(41,16,4,1,ink);
+    R(42,11,1,5,GREEN); R(40,12,2,1,GREEN); R(43,13,2,1,GREEN); R(39,13,1,2,GREEN); R(45,11,1,2,GREEN);
+
+    // poster: a tiny loss curve
+    R(58,4,26,13,ink); R(59,5,24,11,card); R(60,6,10,1,acc);
+    [[61,8],[62,9],[63,10],[64,11],[66,12],[68,12],[71,13],[75,13],[80,14]].forEach(([x,y])=>R(x,y,1,1,acc2));
+
+    // lamp + glow
+    ctx.globalAlpha = d?.18:.12;
+    for(let y=33;y<44;y++){ const w=6+(y-33); R(24-Math.floor(w/2),y,w,1,"#FFE2B0"); }
+    ctx.globalAlpha = 1;
+    R(12,42,8,2,ink); R(15,29,1,13,ink); R(15,29,8,1,ink); R(20,30,7,3,acc); R(22,33,3,1,"#FFE2B0");
+
+    // desk
+    R(0,44,160,2,acc2); R(0,46,160,4, d?"#1F1B17":"#DCCCB6");
+    R(6,47,34,3, d?"#29241E":"#E6D8C5"); R(21,48,4,1,d?acc2:ink);
+    R(118,47,34,3, d?"#29241E":"#E6D8C5"); R(133,48,4,1,d?acc2:ink);
+
+    // monitor
+    R(50,18,48,22,ink); R(52,20,44,18,"#FBF8F2"); R(71,40,6,2,ink); R(68,41,12,1,ink);
+    // image panel
+    R(53,21,18,16,"#EDE3D3"); R(53,33,18,4,"#DCCDB6");
+    R(55,28,5,5,RED); R(56,27,5,1,"#E07A5F"); R(60,28,1,4,"#A84630");
+    R(64,28,3,1,BLUE); R(63,29,5,3,BLUE); R(64,32,3,1,BLUE); R(64,29,1,1,"#A9C1DD");
+    // caption typing: one pixel per letter
+    const P=150, chars = still ? 99 : Math.floor((t%P)/2.2);
+    let x=73, y=23, n=0, focus=null;
+    R(73,21,21,1,line);
+    WORDS.forEach((w,i)=>{
+      if(x + w.length > 95){ x=73; y+=3; }
+      const c = (w==="red"||w==="cube") ? RED : (w==="blue"||w==="ball") ? BLUE : soft;
+      for(let k=0;k<w.length;k++){ if(n<chars){ R(x+k,y,1,1,c); if(i===1||i===2) focus="cube"; if(i===6||i===7) focus="ball"; } n++; }
+      x += w.length+1; n++;
+    });
+    if(chars < n && Math.floor(t/4)%2) R(Math.min(x,94), y, 1, 1, ink);
+    if(chars >= n && !still) focus = Math.floor(t/12)%2 ? "cube":"ball";
+    // attention box around the object being named
+    const box = (bx,by,bw,bh)=>{ R(bx,by,bw,1,acc); R(bx,by+bh-1,bw,1,acc); R(bx,by,1,bh,acc); R(bx+bw-1,by,1,bh,acc); };
+    if(focus==="cube") box(54,26,8,8);
+    if(focus==="ball") box(62,27,7,7);
+
+    // keyboard
+    R(56,42,34,2,ink); for(let k=0;k<16;k++) R(57+k*2,42,1,1,soft);
+
+    // mug + steam
+    R(100,38,5,6,acc); R(105,39,1,1,acc); R(106,40,1,2,acc); R(105,42,1,1,acc); R(100,38,5,1,ink);
+    if(!still) for(let i=0;i<3;i++){ const ph=(t/3+i*4)%12; ctx.globalAlpha=1-ph/12; R(101+((Math.floor(ph)+i)%3), 37-Math.floor(ph), 1,1, soft); }
+    ctx.globalAlpha=1;
+
+    // papers
+    R(140,41,12,3,card); R(141,40,12,1,line); R(142,42,8,1,line);
+
+    // bot
+    const pal = {k:ink, b:acc, e:"#FBF8F2", t:acc2, l: Math.floor(t/6)%2 ? acc2 : "#FBF8F2"};
+    const oy = 26 - (hop>0?2:0);
+    BOT.forEach((row,yy)=>[...row].forEach((c,xx)=>{ if(pal[c] && !(hop>0 && yy>=16)) R(120+xx, oy+yy, 1,1, pal[c]); }));
+    if(blink>0){ R(125,oy+5,6,4,acc); R(125,oy+7,6,1,ink); }
+    else { const px = 126 + look; R(px,oy+6,2,2,ink); R(px,oy+6,1,1,"#FBF8F2"); }
+  }
+
+  function tick(){
+    t++;
+    if(blink>0) blink--; else if(Math.random()<0.02) blink=2;
+    if(t%30===0) look = Math.random()<0.7 ? -1 : (Math.random()<0.5?0:1);
+    if(hop>0) hop--;
+    if(t%120===60){ say(LINES[li%LINES.length]); li++; }
+    draw();
+  }
+  document.getElementById("sceneWrap").addEventListener("click", ()=>{ hop=4; say("hi! 👋"); if(still) draw(); });
+  draw();
+  if(!still) setInterval(tick, 100);
+  document.getElementById("themeBtn").addEventListener("click", ()=>setTimeout(draw,0));
+})();
+document.querySelectorAll(".pbtn").forEach(b=>{
+  const nudge = e=>{
+    if(e.type==="keydown" && e.key!=="Enter" && e.key!==" ") return;
+    e.preventDefault();
+    b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+    setTimeout(()=>b.classList.remove("shake"), 900);
+  };
+  b.addEventListener("click", nudge); b.addEventListener("keydown", nudge);
+});
+</script>
+</body>
+</html>
