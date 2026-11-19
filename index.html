@@ -123,6 +123,18 @@ a.pbtn.live::before,a.pbtn.live::after{display:none}
 .three .card{margin-bottom:0}
 .three h3{font-family:var(--pix);font-size:14px;color:var(--accent);margin-bottom:10px;letter-spacing:.3px}
 @media (max-width:760px){ .three{grid-template-columns:1fr} }
+.three.two{grid-template-columns:repeat(2,1fr)}
+@media (max-width:760px){ .three.two{grid-template-columns:1fr} }
+.news{list-style:none;padding:0;margin:0;background:var(--card);padding:6px 22px;
+  clip-path:polygon(0 6px,6px 6px,6px 0,calc(100% - 6px) 0,calc(100% - 6px) 6px,100% 6px,100% calc(100% - 6px),calc(100% - 6px) calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,6px calc(100% - 6px),0 calc(100% - 6px))}
+.news{max-height:236px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+.news::-webkit-scrollbar{width:6px}
+.news::-webkit-scrollbar-thumb{background:var(--accent)}
+.news::-webkit-scrollbar-track{background:transparent}
+.news li{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:11px 0;border-top:1px solid var(--line);font-size:16px;line-height:1.45}
+.news li:first-child{border-top:none}
+.news .when{font-family:var(--pix);font-size:13px;color:var(--accent);padding-top:2px}
+@media (max-width:520px){ .news li{grid-template-columns:1fr;gap:2px} }
 .plain{list-style:none;padding:0;margin:0}
 .plain li{padding:6px 0;font-size:15px;line-height:1.45;border-top:1px solid var(--line)}
 .plain li:first-child{border-top:none;padding-top:0}
@@ -163,6 +175,7 @@ footer{text-align:center;color:var(--soft);font-size:14px;padding:20px 0 40px}
 <nav>
   <div class="wrap">
     <a class="name" href="#top">Harsh Udai</a>
+    <a class="l" href="#updates">Updates</a>
     <a class="l" href="#research">Research</a>
     <a class="l" href="#publications">Publications</a>
     <a class="l" href="#background">Background</a>
@@ -192,6 +205,18 @@ footer{text-align:center;color:var(--soft);font-size:14px;padding:20px 0 40px}
       </div>
     </div>
   </header>
+
+  <section id="updates">
+    <h2>Updates</h2>
+    <ul class="news">
+      <li><span class="when">Oct 2026</span><span class="what">✈️ Received the ACM/IARCS Travel Grant</span></li>
+      <li><span class="when">Oct 2026</span><span class="what">✈️ Received the NeurIPS 2026 Travel Grant (Financial Assistance)</span></li>
+      <li><span class="when">Oct 2026</span><span class="what">🏅 Top Reviewer Award at NeurIPS 2026</span></li>
+      <li><span class="when">Sep 2026</span><span class="what">🎉 Two papers accepted at NeurIPS 2026: <a href="https://harsh-udai.github.io/GPS-CLIP/" target="_blank" rel="noopener">Beyond Hard Negatives</a> and <a href="https://harsh-udai.github.io/LACE/" target="_blank" rel="noopener">LACE</a></span></li>
+      <li><span class="when">May 2026</span><span class="what">🏆 Silver Reviewer Award at ICML 2026</span></li>
+      <li><span class="when">Jul 2025</span><span class="what">🎓 Awarded the C-DOT STAR Scholarship</span></li>
+    </ul>
+  </section>
 
   <section id="research">
     <h2>Research</h2>
@@ -243,7 +268,7 @@ footer{text-align:center;color:var(--soft);font-size:14px;padding:20px 0 40px}
 
   <section id="honors">
     <h2>Honors &amp; service</h2>
-    <div class="three">
+    <div class="three two">
       <div class="card">
         <h3>📝 Reviewing</h3>
         <ul class="plain">
@@ -251,15 +276,6 @@ footer{text-align:center;color:var(--soft);font-size:14px;padding:20px 0 40px}
           <li>Silver Reviewer Award<span>ICML 2026</span></li>
           <li>Reviewer<span>ICLR 2027, AAAI 2027, NeurIPS 2026, ICML 2026, ICVGIP 2025</span></li>
           <li>Sub-reviewer<span>CVPR 2026, ECCV 2026, ICVGIP 2026, NeurIPS 2025, TMLR</span></li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>📢 Updates</h3>
-        <ul class="plain">
-          <li>🏅 Top Reviewer Award at NeurIPS<span>October 2026</span></li>
-          <li>🎉 Two papers accepted at NeurIPS<span>September 2026</span></li>
-          <li>🏆 Silver Reviewer Award at ICML<span>May 2026</span></li>
-          <li>🎓 Awarded C-DOT STAR Scholarship<span>July 2025</span></li>
         </ul>
       </div>
       <div class="card">
